@@ -17,6 +17,7 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
+        AbstractHttpException::class,
         AuthorizationException::class,
         HttpException::class,
         ModelNotFoundException::class,
@@ -49,6 +50,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if ($exception instanceof AbstractHttpException) {
+            return $exception->toResponse();
+        }
+
         return parent::render($request, $exception);
     }
 }
