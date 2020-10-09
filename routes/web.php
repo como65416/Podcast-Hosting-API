@@ -13,6 +13,12 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
+$router->group(['prefix' => 'draft'], function () use ($router) {
+    $router->post('/Register', [
+        'uses' => 'MemberController@register',
+    ]);
+
+    $router->post('/Login', [
+        'uses' => 'MemberController@login',
+    ]);
 });
