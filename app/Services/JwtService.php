@@ -35,4 +35,18 @@ class JwtService
 
         return JWT::encode($realPayload, $this->key);
     }
+
+    /**
+     * extract data from jwt token
+     *
+     * @return array
+     *
+     * @throws Exception if token not validate
+     */
+    public function extractPayload($token)
+    {
+        $decoded = JWT::decode($token, $this->key, [$this->algorithm]);
+
+        return $decoded->data;
+    }
 }
