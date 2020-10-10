@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Exceptions\BadRequestException;
 use App\Exceptions\UnauthorizedException;
 use App\Services\JwtService;
@@ -72,5 +73,39 @@ class MemberController extends Controller
                 'memberId' => $memberId,
             ], 86400),
         ];
+    }
+
+    /**
+     * get account profile
+     *
+     * @param  Request $request
+     */
+    public function getProfile(Request $request)
+    {
+        $memberId = $request->attributes->get('memberId');
+        $member = $this->memberService->getMemberById($memberId);
+
+        return $member;
+    }
+
+    /**
+     * update account profile
+     *
+     * @param Request $request
+     */
+    public function updateProfile(Request $request)
+    {
+        $this->validateRequest($request, [
+            'name' => ['string', 'min:2'],
+            'password' => ['string', 'min:8'],
+            'email' => ['string', 'email'],
+        ]);
+
+        $memberId = $request->attributes->get('memberId');
+        $updateData = $request->all();
+
+        $this->memberService->updateMember($memberId, $updateData);
+
+        return new Response('', 204);
     }
 }

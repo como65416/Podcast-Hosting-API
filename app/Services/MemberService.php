@@ -98,4 +98,22 @@ class MemberService
 
         return $member['id'];
     }
+
+    /**
+     * @param  int   $id
+     * @param  array $memberData
+     * [
+     *     'name' => name,
+     *     'email' => email,
+     *     'password' => 'password',
+     * ]
+     */
+    public function updateMember(int $id, array $memberData)
+    {
+        if (isset($memberData['password'])) {
+            $memberData['password'] = Hash::make($memberData['password']);
+        }
+
+        $this->memberRepository->updateMemberData($id, $memberData);
+    }
 }

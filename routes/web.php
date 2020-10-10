@@ -21,4 +21,14 @@ $router->group(['prefix' => 'draft'], function () use ($router) {
     $router->post('/Login', [
         'uses' => 'MemberController@login',
     ]);
+
+    $router->group(['middleware' => 'jwt'], function () use ($router) {
+        $router->get('/Profile', [
+            'uses' => 'MemberController@getProfile',
+        ]);
+
+        $router->patch('/Profile', [
+            'uses' => 'MemberController@updateProfile',
+        ]);
+    });
 });
