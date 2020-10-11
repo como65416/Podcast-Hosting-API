@@ -13,6 +13,8 @@
 |
 */
 
+$router->options('{any:.*}', ['middleware' => 'cors']);
+
 $router->group(['prefix' => 'draft'], function () use ($router) {
     $router->post('/Register', [
         'uses' => 'MemberController@register',

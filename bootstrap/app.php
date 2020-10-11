@@ -78,6 +78,7 @@ $app->configure('jwt');
 // ]);
 
 $app->routeMiddleware([
+    'cors' => App\Http\Middleware\CorsMiddleware::class,
     'jwt' => App\Http\Middleware\JwtMiddleware::class,
     'channel-permission' => App\Http\Middleware\ChannelPermissionMiddleware::class,
     'item-permission' => App\Http\Middleware\ItemPermissionMiddleware::class,
