@@ -51,12 +51,20 @@ $router->group(['prefix' => 'draft'], function () use ($router) {
             $router->get('/Channels/{channelId}/Items', [
                 'uses' => 'ItemController@getItems',
             ]);
+
+            $router->delete('/Channels/{channelId}', [
+                'uses' => 'ChannelController@deleteChannel',
+            ]);
         });
 
         // Channel's Item
         $router->group(['middleware' => 'item-permission'], function() use ($router) {
             $router->post('/Channels/{channelId}/Items/{itemId}/Audios', [
                 'uses' => 'ItemController@uploadAudio',
+            ]);
+
+            $router->delete('/Channels/{channelId}/Items/{itemId}', [
+                'uses' => 'ItemController@deleteItem',
             ]);
         });
     });

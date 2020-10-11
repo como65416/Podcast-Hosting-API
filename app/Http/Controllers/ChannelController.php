@@ -50,4 +50,17 @@ class ChannelController extends Controller
 
         return $this->podcastService->getMemberChannels($memberId);
     }
+
+    /**
+     * delete channel
+     *
+     * @param  Request $request
+     */
+    public function deleteChannel(Request $request)
+    {
+        $channelId = $request->route('channelId');
+        $this->podcastService->deleteChannel($channelId);
+
+        return new Response('', 204);
+    }
 }

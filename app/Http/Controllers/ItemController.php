@@ -109,4 +109,17 @@ class ItemController extends Controller
 
         return $outItems;
     }
+
+    /**
+     * delete item
+     *
+     * @param  Request $request
+     */
+    public function deleteItem(Request $request)
+    {
+        $itemId = $request->route('itemId');
+        $this->podcastService->deleteItem($itemId);
+
+        return new Response('', 204);
+    }
 }
