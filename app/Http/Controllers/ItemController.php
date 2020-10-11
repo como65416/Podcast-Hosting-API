@@ -92,7 +92,21 @@ class ItemController extends Controller
     public function getItems(Request $request)
     {
         $channelId = $request->route('channelId');
+        $items = $this->podcastService->getChannelItems($channelId);
+        $outItems = [];
+        foreach($items as $item) {
+            $audioUrl = env('APP_URL') . '/Channels/' . $item['channelId'] . '/Items/' . $item['id'] . '/Audios';
 
-        return $this->podcastService->getChannelItems($channelId);
+            $outItems[] = [
+                'id' => $item['id'],
+                'channelId' => $item['channelId'],
+                'title' => $item['title'],
+                'description' => $item['description'],
+                'publishAt' => $item['publishAt'],
+                'audioUrl' => ($item['hasAudio']) ? $audioUrl : null,
+            ];
+        }
+
+        return $outItems;
     }
 }

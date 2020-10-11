@@ -163,6 +163,7 @@ class PodcastService
                 'title' => $item['title'],
                 'description' => $item['description'],
                 'publishAt' => $item['publishAt'],
+                'hasAudio' => !empty($item['audioPath']),
             ];
         }
 
