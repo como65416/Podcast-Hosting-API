@@ -53,4 +53,14 @@ interface ItemRepositoryInterface
       * ]
       */
      public function getItemsByChannelIds(array $channelIds);
+
+     /**
+      * @param  array  $ids
+      */
+     public function deleteItemsByIds(array $ids);
+
+     /**
+      * @param  array  $channelIds
+      */
+     public function deleteItemsByChannelIds(array $channelIds);
 }

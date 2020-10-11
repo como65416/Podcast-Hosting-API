@@ -69,4 +69,20 @@ class ItemRepository implements ItemRepositoryInterface
         $item->publish_at = $data['publishAt'] ?? $item->publish_at;
         $item->save();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function deleteItemsByIds(array $ids)
+    {
+        $this->itemModel->whereIn('id', $ids)->delete();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function deleteItemsByChannelIds(array $channelIds)
+    {
+        $this->itemModel->whereIn('channel_id', $channelIds)->delete();
+    }
 }
