@@ -72,4 +72,8 @@ $router->group(['prefix' => 'draft'], function () use ($router) {
     $router->get('/Channels/{channelId}/Items/{itemId}/Audios', [
         'uses' => 'ItemController@getAudio',
     ]);
+
+    $router->get('/Channels/{channelId}/Rss', [
+        'uses' => 'ChannelController@getRss',
+    ]);
 });
