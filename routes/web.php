@@ -23,6 +23,7 @@ $router->group(['prefix' => 'draft'], function () use ($router) {
     ]);
 
     $router->group(['middleware' => 'jwt'], function () use ($router) {
+        // Member
         $router->get('/Profile', [
             'uses' => 'MemberController@getProfile',
         ]);
@@ -39,20 +40,26 @@ $router->group(['prefix' => 'draft'], function () use ($router) {
             'uses' => 'ChannelController@getChannels',
         ]);
 
-        $router->post('/Channels/{channelId}/Items', [
-            'uses' => 'ItemController@createItem',
-        ]);
+        // Channel
+        $router->group(['middleware' => 'channel-permission'], function() use ($router) {
+            $router->post('/Channels/{channelId}/Items', [
+                'uses' => 'ItemController@createItem',
+            ]);
 
-        $router->post('/Channels/{channelId}/Items/{itemId}/Audios', [
-            'uses' => 'ItemController@uploadAudio',
-        ]);
+            $router->get('/Channels/{channelId}/Items', [
+                'uses' => 'ItemController@getItems',
+            ]);
+        });
+
+        // Channel's Item
+        $router->group(['middleware' => 'item-permission'], function() use ($router) {
+            $router->post('/Channels/{channelId}/Items/{itemId}/Audios', [
+                'uses' => 'ItemController@uploadAudio',
+            ]);
+        });
 
         $router->get('/Channels/{channelId}/Items/{itemId}/Audios', [
             'uses' => 'ItemController@getAudio',
-        ]);
-
-        $router->get('/Channels/{channelId}/Items', [
-            'uses' => 'ItemController@getItems',
         ]);
     });
 });
