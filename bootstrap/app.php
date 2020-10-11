@@ -96,7 +96,10 @@ $app->routeMiddleware([
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register(App\Providers\MemberRepositoryProvider::class);
+$app->register(App\Providers\ChannelRepositoryProvider::class);
+$app->register(App\Providers\ItemRepositoryProvider::class);
 $app->register(App\Providers\JwtServiceProvider::class);
+$app->register(App\Providers\PodcastServiceProvider::class);
 $app->register(App\Providers\MemberServiceProvider::class);
 
 /*
