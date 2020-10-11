@@ -65,4 +65,12 @@ class ChannelRepository implements ChannelRepositoryInterface
         $channel->description = $data['description'] ?? $channel->description;
         $channel->save();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function deleteChannelsByIds(array $ids)
+    {
+        $this->channelModel->whereIn('id', $ids)->delete();
+    }
 }

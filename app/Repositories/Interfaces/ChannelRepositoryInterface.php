@@ -57,4 +57,9 @@ interface ChannelRepositoryInterface
      * ]
      */
     public function updateChannelData(int $id, array $data);
+
+    /**
+     * @param  array    $ids
+     */
+    public function deleteChannelsByIds(array $ids);
 }
