@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Repositories\Interfaces\ChannelRepositoryInterface;
 use App\Repositories\Interfaces\ItemRepositoryInterface;
+use Exception;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\File;
 
@@ -168,5 +170,44 @@ class PodcastService
         }
 
         return $outItems;
+    }
+
+    /**
+     * delete channel's item
+     *
+     * @param  int    $itemId
+     */
+    public function deleteItem(int $itemId)
+    {
+        try {
+            DB::beginTransaction();
+
+            $this->itemRepository->deleteItemsByIds([$itemId]);
+
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+    }
+
+    /**
+     * delete channel
+     *
+     * @param  int    $channelId
+     */
+    public function deleteChannel(int $channelId)
+    {
+        try {
+            DB::beginTransaction();
+
+            $this->channelRepository->deleteChannelsByIds([$channelId]);
+            $this->itemRepository->deleteItemsByChannelIds([$channelId]);
+
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
     }
 }
