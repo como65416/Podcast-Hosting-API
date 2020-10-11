@@ -30,5 +30,29 @@ $router->group(['prefix' => 'draft'], function () use ($router) {
         $router->patch('/Profile', [
             'uses' => 'MemberController@updateProfile',
         ]);
+
+        $router->post('/Channels', [
+            'uses' => 'ChannelController@createChannel',
+        ]);
+
+        $router->get('/Channels', [
+            'uses' => 'ChannelController@getChannels',
+        ]);
+
+        $router->post('/Channels/{channelId}/Items', [
+            'uses' => 'ItemController@createItem',
+        ]);
+
+        $router->post('/Channels/{channelId}/Items/{itemId}/Audios', [
+            'uses' => 'ItemController@uploadAudio',
+        ]);
+
+        $router->get('/Channels/{channelId}/Items/{itemId}/Audios', [
+            'uses' => 'ItemController@getAudio',
+        ]);
+
+        $router->get('/Channels/{channelId}/Items', [
+            'uses' => 'ItemController@getItems',
+        ]);
     });
 });
